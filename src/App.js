@@ -89,7 +89,6 @@ function App() {
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-    console.log(loaded);
     return (
         <div>
             {loaded ? (
