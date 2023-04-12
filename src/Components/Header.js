@@ -67,7 +67,7 @@ const Header = () => {
                         </Link>
                     ))}
             </div>
-            <div className="w-[400px]">
+            <div className={` ${width <3 ?"absolute right-4 top-7 left-2":"w-[400px]"}`}>
                 <SearchInput />
             </div>
             {showMenu && (
