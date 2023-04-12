@@ -1,9 +1,66 @@
 import axios from "../axios";
-export const getGenres = () =>
+
+export const getPopularMovie = (page) =>
     new Promise(async (resolve, reject) => {
         try {
             const res = await axios({
-                url: "/genre/movie/list",
+                url: "/movie/popular",
+                method: "get",
+                params: {
+                    api_key: "1016db774bb72a6f95ad18a8797f0005",
+                    page: page,
+                    language: "en-US",
+                },
+            });
+            resolve(res);
+        } catch (error) {
+            reject(error);
+        }
+    });
+
+    
+export const getAllMovies = (page) =>
+    new Promise(async (resolve, reject) => {
+        try {
+            const res = await axios({
+                url: "/discover/movie",
+                method: "get",
+                params: {
+                    api_key: "1016db774bb72a6f95ad18a8797f0005",
+                    page: page,
+                    language: "en-US",
+                    sort_by: "vote_count.desc",
+                    include_adult: "true",
+                },
+            });
+            resolve(res);
+        } catch (error) {
+            reject(error);
+        }
+    });
+
+export const getComingMovies = (page) =>
+    new Promise(async (resolve, reject) => {
+        try {
+            const res = await axios({
+                url: "/movie/upcoming",
+                method: "get",
+                params: {
+                    api_key: "1016db774bb72a6f95ad18a8797f0005",
+                    page: page,
+                    language: "en-US",
+                },
+            });
+            resolve(res);
+        } catch (error) {
+            reject(error);
+        }
+    });
+export const getDetail = (media_type, id) =>
+    new Promise(async (resolve, reject) => {
+        try {
+            const res = await axios({
+                url: `/${media_type}/${id}`,
                 method: "get",
                 params: {
                     api_key: "1016db774bb72a6f95ad18a8797f0005",
@@ -15,11 +72,11 @@ export const getGenres = () =>
             reject(error);
         }
     });
-export const getLanguages = () =>
+export const getCredits = (type, id) =>
     new Promise(async (resolve, reject) => {
         try {
             const res = await axios({
-                url: "/configuration/languages",
+                url: `/${type}/${id}/credits`,
                 method: "get",
                 params: {
                     api_key: "1016db774bb72a6f95ad18a8797f0005",
@@ -32,48 +89,15 @@ export const getLanguages = () =>
         }
     });
 
-
-export const getTrending = (media_type, time_window) =>
+export const getRecommenedations = (type, id) =>
     new Promise(async (resolve, reject) => {
         try {
             const res = await axios({
-                url: `/trending/${media_type}/${time_window}`,
-                method: "get",
-                params: {
-                    api_key: "1016db774bb72a6f95ad18a8797f0005",
-                },
-            });
-            resolve(res);
-        } catch (error) {
-            reject(error);
-        }
-    });
-
-export const getTvOnAiring = () =>
-    new Promise(async (resolve, reject) => {
-        try {
-            const res = await axios({
-                url: `/tv/on_the_air`,
-                method: "get",
-                params: {
-                    api_key: "1016db774bb72a6f95ad18a8797f0005",
-                },
-            });
-            resolve(res);
-        } catch (error) {
-            reject(error);
-        }
-    });
-export const getMovieNowPlaying = () =>
-    new Promise(async (resolve, reject) => {
-        try {
-            const res = await axios({
-                url: `/movie/now_playing`,
+                url: `/${type}/${id}/recommendations`,
                 method: "get",
                 params: {
                     api_key: "1016db774bb72a6f95ad18a8797f0005",
                     language: "en-US",
-                    page: 1,
                 },
             });
             resolve(res);

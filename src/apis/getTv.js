@@ -1,13 +1,16 @@
 import axios from "../axios";
-export const getGenres = () =>
+export const getAllTv = (page) =>
     new Promise(async (resolve, reject) => {
         try {
             const res = await axios({
-                url: "/genre/movie/list",
+                url: "/discover/tv",
                 method: "get",
                 params: {
                     api_key: "1016db774bb72a6f95ad18a8797f0005",
+                    page: page,
                     language: "en-US",
+                    sort_by: "vote_count.desc",
+                    include_adult: "true",
                 },
             });
             resolve(res);
@@ -15,15 +18,18 @@ export const getGenres = () =>
             reject(error);
         }
     });
-export const getLanguages = () =>
+export const getTvOnAiring = (page) =>
     new Promise(async (resolve, reject) => {
         try {
             const res = await axios({
-                url: "/configuration/languages",
+                url: "/tv/airing_today",
                 method: "get",
                 params: {
                     api_key: "1016db774bb72a6f95ad18a8797f0005",
+                    page: page,
                     language: "en-US",
+                    sort_by: "vote_count.desc",
+                    include_adult: "true",
                 },
             });
             resolve(res);
@@ -31,49 +37,17 @@ export const getLanguages = () =>
             reject(error);
         }
     });
-
-
-export const getTrending = (media_type, time_window) =>
+    export const getTopRatedTv = (page) =>
     new Promise(async (resolve, reject) => {
         try {
             const res = await axios({
-                url: `/trending/${media_type}/${time_window}`,
+                url: "/tv/top_rated",
                 method: "get",
                 params: {
                     api_key: "1016db774bb72a6f95ad18a8797f0005",
-                },
-            });
-            resolve(res);
-        } catch (error) {
-            reject(error);
-        }
-    });
-
-export const getTvOnAiring = () =>
-    new Promise(async (resolve, reject) => {
-        try {
-            const res = await axios({
-                url: `/tv/on_the_air`,
-                method: "get",
-                params: {
-                    api_key: "1016db774bb72a6f95ad18a8797f0005",
-                },
-            });
-            resolve(res);
-        } catch (error) {
-            reject(error);
-        }
-    });
-export const getMovieNowPlaying = () =>
-    new Promise(async (resolve, reject) => {
-        try {
-            const res = await axios({
-                url: `/movie/now_playing`,
-                method: "get",
-                params: {
-                    api_key: "1016db774bb72a6f95ad18a8797f0005",
+                    page: page,
                     language: "en-US",
-                    page: 1,
+                    sort_by: "vote_count.desc",
                 },
             });
             resolve(res);
