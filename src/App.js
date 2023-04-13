@@ -20,6 +20,7 @@ import {
     setTrendingTvDay,
     setTrendingTvWeek,
     setTvOnTheAir,
+    setWidthAction,
 } from "./store/actions/homeAction";
 import PopularMovie from "./Containers/Movie/PopularMovie";
 import { AllMovies, UpcomingMovie } from "./Containers/Movie";
@@ -58,6 +59,7 @@ function App() {
                     : 4
             )
         );
+        dispatch(setWidthAction(currentWidth));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentWidth]);
     useEffect(() => {

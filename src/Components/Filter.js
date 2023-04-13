@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FilterIcon, GenreIcon } from "../utils/icons";
 import { setGenreFilter } from "../store/actions/filterActions";
+import { widthSelector } from "../store/widthSelector";
+import { currentWidth } from "../store/widthSelector";
 
 const Filter = () => {
     const genres = useSelector((state) => state.home.genres);
@@ -9,7 +11,8 @@ const Filter = () => {
     const [activeGenres, setActiveGenres] = useState([]);
     const [showGenres, setShowGenres] = useState(false);
     const genresRef = useRef(null);
-
+    const width = useSelector(widthSelector);
+    const currentWidthSelector = useSelector(currentWidth);
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (
@@ -76,10 +79,17 @@ const Filter = () => {
                             <span>{activeGenres.length} selected</span>
                         )}
                     </div>
-                    <div>{}</div>
                 </div>
                 {showGenres && (
-                    <div className="absolute bottom-[-210px] px-4 py-5  w-[500px] flex flex-col gap-2 z-10 bg-[#212529] text-[#cccccc] rounded-md">
+                    <div
+                        style={{
+                            width:
+                                width > 2
+                                    ? "500px"
+                                    : `${currentWidthSelector - 30}px`,
+                        }}
+                        className={`absolute top-[50px] px-4 py-5 flex flex-col z-10 bg-[#212529] text-[#cccccc] rounded-md  `}
+                    >
                         <div className="flex flex-wrap gap-4">
                             {genres.map((genre) => {
                                 const isActive = activeGenres.some(

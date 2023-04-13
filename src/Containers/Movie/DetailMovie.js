@@ -134,7 +134,11 @@ const DetailMovie = () => {
                                             "justify-center items-center"
                                         }`}
                                     >
-                                        <span className="text-[32px] font-semibold cursor-pointer">
+                                        <span
+                                            className={`text-[32px] font-semibold cursor-pointer ${
+                                                width < 2 && "text-center"
+                                            }`}
+                                        >
                                             {movie.title || movie.name}
                                         </span>
                                         <div className="flex gap-4 items-center">
@@ -196,12 +200,12 @@ const DetailMovie = () => {
                                                 )}
                                             </span>
                                             <div
-                                                className="flex py-[2px] pl-2 pr-3 border items-center  cursor-pointer hover:text-primary hover:border-primary duration-200"
+                                                className="flex py-[2px] pl-2 pr-3 border items-center flex-none cursor-pointer hover:text-primary hover:border-primary duration-200"
                                                 onClick={() => setIsShow(true)}
                                             >
                                                 <PlayIcon size={25} />
-                                                <span className="tracking-wide">
-                                                    WATCH TRAILER
+                                                <span className="tracking-wide ">
+                                                    TRAILER
                                                 </span>
                                             </div>
                                         </div>

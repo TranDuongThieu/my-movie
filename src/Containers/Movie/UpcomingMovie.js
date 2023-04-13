@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getComingMovies } from "../../apis/getMovies";
 import MovieCard from "../../Components/MovieCard";
-import {
-    setUpcomingMovies,
-} from "../../store/actions/movieActions";
+import { setUpcomingMovies } from "../../store/actions/movieActions";
 import { widthSelector } from "../../store/widthSelector";
+import TopbarProgressIndicator from "react-topbar-progress-indicator";
 
 const UpcomingMovie = () => {
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(0);
+    const [loaded, setLoaded] = useState(true);
     const dispatch = useDispatch();
     const genreFilter = useSelector((state) =>
         state.filter.genres.map((item) => item.id)
@@ -39,6 +39,7 @@ const UpcomingMovie = () => {
     }, []);
     useEffect(() => {
         const fetchAPI = async () => {
+            setLoaded(false);
             const res = await getComingMovies(page);
             if (res?.status === 200) {
                 dispatch(
@@ -47,6 +48,7 @@ const UpcomingMovie = () => {
                     ])
                 );
             }
+            setLoaded(true);
         };
         if (page < totalPage) fetchAPI();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -86,23 +88,27 @@ const UpcomingMovie = () => {
             : "grid-cols-6";
     return (
         <div className=" py-7 w-full min-h-screen bg-[#111111]">
-            <div className="flex flex-col w-full">
-                <div className={`grid gap-5 flex-1 ${slides}`}>
-                    {movieRemaining?.map((item) => (
-                        <MovieCard
-                            id={item.id}
-                            type="movie"
-                            typeImg="original"
-                            url={item.poster_path}
-                            title={item.title}
-                            date={item.release_date}
-                            rate={item.vote_average}
-                            key={item.id + item.title}
-                            size="lg"
-                        />
-                    ))}
+            {loaded ? (
+                <div className="flex flex-col w-full">
+                    <div className={`grid gap-5 flex-1 ${slides}`}>
+                        {movieRemaining?.map((item) => (
+                            <MovieCard
+                                id={item.id}
+                                type="movie"
+                                typeImg="original"
+                                url={item.poster_path}
+                                title={item.title}
+                                date={item.release_date}
+                                rate={item.vote_average}
+                                key={item.id + item.title}
+                                size="lg"
+                            />
+                        ))}
+                    </div>
                 </div>
-            </div>
+            ) : (
+                <TopbarProgressIndicator />
+            )}
         </div>
     );
 };

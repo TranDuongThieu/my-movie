@@ -67,7 +67,11 @@ const Header = () => {
                         </Link>
                     ))}
             </div>
-            <div className={` ${width <3 ?"absolute right-4 top-7 left-2":"w-[400px]"}`}>
+            <div
+                className={` ${
+                    width < 3 ? "absolute right-4  left-4" : "w-[400px]"
+                }`}
+            >
                 <SearchInput />
             </div>
             {showMenu && (
@@ -93,20 +97,22 @@ const Header = () => {
                     onClick={() => setShowMenu(false)}
                 />
                 <div className="w-full h-[80%] flex flex-col justify-center items-center gap-3">
-                    {[{ title: "Home", link: "/" }, ...LEFT_MENU].map((item) => (
-                        <Link
-                            to={item.link}
-                            className={`p-2 cursor-pointer relative  ${
-                                active === item.title
-                                    ? "text-primary border-b-[2px] border-b-primary"
-                                    : "text-[#CCCCCC] hover:text-white"
-                            }`}
-                            key={item.title}
-                            onClick={() => setActive(item.title)}
-                        >
-                            <span className="">{item.title}</span>
-                        </Link>
-                    ))}
+                    {[{ title: "Home", link: "/" }, ...LEFT_MENU].map(
+                        (item) => (
+                            <Link
+                                to={item.link}
+                                className={`p-2 cursor-pointer relative  ${
+                                    active === item.title
+                                        ? "text-primary border-b-[2px] border-b-primary"
+                                        : "text-[#CCCCCC] hover:text-white"
+                                }`}
+                                key={item.title}
+                                onClick={() => setActive(item.title)}
+                            >
+                                <span className="">{item.title}</span>
+                            </Link>
+                        )
+                    )}
                 </div>
             </div>
         </div>

@@ -35,3 +35,9 @@ export const setCurrentWidthAction = (width) => {
         width,
     };
 };
+export const setWidthAction = (width) => {
+    return {
+        type: actionTypes.SET_WIDTH,
+        width,
+    };
+};

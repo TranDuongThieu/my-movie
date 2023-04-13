@@ -27,7 +27,7 @@ const DetailPerson = () => {
         </div>
     );
     const width = useSelector(widthSelector);
-    const slides = width === 1 ? 2 : width === 2 ? 3 : width === 3 ? 3 : 4.5;
+    const slides = width === 1 ? 2 : width === 2 ? 3 : width === 3 ? 3 : 4;
     const paragraph = person?.biography;
     const toggleParagraph = (event) => {
         event.preventDefault();
@@ -78,7 +78,7 @@ const DetailPerson = () => {
                         className={`grid  ${
                             width > 2
                                 ? " grid-cols-3 gap-[200px]"
-                                : "grid-cols-1 gap-10 "
+                                : "grid-cols-1  w-full"
                         }`}
                     >
                         <div
@@ -214,7 +214,7 @@ const DetailPerson = () => {
                                 <Swiper
                                     slidesPerView={slides}
                                     loop={true}
-                                    spaceBetween={50}
+                                    spaceBetween={20}
                                 >
                                     {movieCredits?.cast
                                         .slice(0, 20)

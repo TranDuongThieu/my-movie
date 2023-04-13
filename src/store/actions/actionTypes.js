@@ -18,5 +18,6 @@ const actionTypes = {
     SET_SEARCH_TV: "SET_SEARCH_TV",
     SET_SEARCH_PEOPLE: "SET_SEARCH_PEOPLE",
     SET_CURRENT_WIDTH: "SET_CURRENT_WIDTH",
+    SET_WIDTH:"SET_WIDTH"
 };
 export default actionTypes;

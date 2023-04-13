@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import { setSearchKeyWords } from "../store/actions/searchAction";
 import { SearchIcon } from "../utils/icons";
 import paths from "../utils/path";
@@ -15,7 +15,6 @@ const SearchInput = () => {
     const handleSetSearchText = (e) => {
         setSearchText(e.target.value);
     };
-    const [searching, setSearching] = useState(false);
     const [show, setShow] = useState(false);
 
     // useEffect(() => {
@@ -70,7 +69,7 @@ const SearchInput = () => {
         <div
             ref={constaintRef}
             className={`flex items-center justify-between px-2 py-1 relative  ${
-                show && "rounded-full border-[1px] bg-black"
+                show && "rounded-full border-[1px] bg-[rgba(0,0,0,0.9)]"
             }`}
         >
             <input
@@ -79,7 +78,7 @@ const SearchInput = () => {
                 onChange={handleSetSearchText}
                 type="text"
                 placeholder="Search for a movie, tv show, person..."
-                className={`flex-1 outline-none rounded-full px-[10px] py-[5px]   bg-black ${
+                className={`flex-1 outline-none rounded-full px-[10px] py-[5px]  bg-transparent ${
                     show ? " block" : "hidden"
                 }`}
                 onKeyDown={handleCheckEnter}

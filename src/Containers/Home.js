@@ -4,9 +4,7 @@ import BackgroundVideo from "../Components/BackgroundVideo";
 import Trending from "../Components/Trending";
 import Introduce from "../Components/Introduce";
 import { widthSelector } from "../store/widthSelector";
-import MovieCard from "../Components/MovieCard";
 import Movies from "../Components/Movies";
-import Loading from "../Components/Loading";
 
 const Home = () => {
     const trendingMovieDay = useSelector(
@@ -31,6 +29,7 @@ const Home = () => {
                 <BackgroundVideo />
             </div>
             <div className="w-full h-[50.25vw] min-h-[400px]"></div>
+
             <div>
                 <Introduce />
             </div>

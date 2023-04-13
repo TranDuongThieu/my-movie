@@ -86,7 +86,8 @@ const initialState = {
     trending_tv_week: null,
     tv_on_the_air: null,
     movie_now_playing: null,
-    width: '',
+    width: "",
+    current_width: 0,
 };
 const homeReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -104,9 +105,10 @@ const homeReducer = (state = initialState, action) => {
             return { ...state, tv_on_the_air: action.data };
         case actionTypes.MOVIE_NOW_PLAYING:
             return { ...state, movie_now_playing: action.data };
-        case actionTypes.SET_CURRENT_WIDTH: {
+        case actionTypes.SET_CURRENT_WIDTH: 
             return { ...state, width: action.width };
-        }
+            case actionTypes.SET_WIDTH: 
+            return { ...state, current_width: action.width };
         default:
             return state;
     }

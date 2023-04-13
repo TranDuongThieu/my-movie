@@ -3,11 +3,13 @@ import { getPopularPeople } from "../../apis/getPeople";
 import PeopleCard from "./PeopleCard";
 import { widthSelector } from "../../store/widthSelector";
 import { useSelector } from "react-redux";
+import TopbarProgressIndicator from "react-topbar-progress-indicator";
 
 const People = () => {
     const [popularPeople, setPopularPeople] = useState([]);
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(0);
+    const [loaded, setLoaded] = useState(true);
     const width = useSelector(widthSelector);
     const slides =
         width === 1
@@ -30,10 +32,12 @@ const People = () => {
     }, []);
     useEffect(() => {
         const fetchAPI = async () => {
+            setLoaded(false);
             const res = await getPopularPeople(page);
             if (res?.status === 200) {
                 setPopularPeople([...popularPeople, ...res.data.results]);
             }
+            setLoaded(true);
         };
         if (page < totalPage) fetchAPI();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -64,13 +68,20 @@ const People = () => {
     };
     return (
         <div className="pt-[80px] px-1 sm:px-5 md:px-10 lg:px-[60px] min-h-[1000px]">
-            <div className="text-[25px] font-bold my-10">Popular People</div>
-            <div className={`grid gap-5 ${slides} mx-2`}>
-                {popularPeople.map((person) => (
-                    <PeopleCard people={person} />
-                ))}
-            </div>
-           
+            {loaded ? (
+                <div>
+                    <div className="text-[25px] font-bold my-10">
+                        Popular People
+                    </div>
+                    <div className={`grid gap-5 ${slides} mx-2`}>
+                        {popularPeople.map((person) => (
+                            <PeopleCard people={person} />
+                        ))}
+                    </div>
+                </div>
+            ) : (
+                <TopbarProgressIndicator />
+            )}
         </div>
     );
 };

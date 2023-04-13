@@ -4,6 +4,7 @@ import MovieCard from "../../Components/MovieCard";
 import { setAllMovies } from "../../store/actions/movieActions";
 import { getAllMovies } from "../../apis/getMovies";
 import { widthSelector } from "../../store/widthSelector";
+import TopbarProgressIndicator from "react-topbar-progress-indicator";
 
 const AllMovies = () => {
     const [page, setPage] = useState(1);
@@ -12,6 +13,7 @@ const AllMovies = () => {
     const genreFilter = useSelector((state) =>
         state.filter.genres.map((item) => item.id)
     );
+    const [loaded, setLoaded] = useState(true);
     // const language = useSelector((state) => state.home.languages);
     const width = useSelector(widthSelector);
     const slides =
@@ -46,12 +48,14 @@ const AllMovies = () => {
     }, []);
     useEffect(() => {
         const fetchAPI = async () => {
+            setLoaded(false);
             const res = await getAllMovies(page);
             if (res?.status === 200) {
                 dispatch(
                     setAllMovies([...popularMovies.concat(res?.data?.results)])
                 );
             }
+            setLoaded(true);
         };
         if (page < totalPage) fetchAPI();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -82,23 +86,27 @@ const AllMovies = () => {
     };
     return (
         <div className=" py-7 w-full min-h-screen bg-[#111111]">
-            <div className="flex flex-col w-full">
-                <div className={`grid  gap-5 flex-1 ${slides}`}>
-                    {movieRemaining?.map((item) => (
-                        <MovieCard
-                            id={item.id}
-                            type="movie"
-                            typeImg="original"
-                            url={item.poster_path}
-                            title={item.title}
-                            date={item.release_date}
-                            rate={item.vote_average}
-                            key={item.id + item.title}
-                            size="lg"
-                        />
-                    ))}
+            {loaded ? (
+                <div className="flex flex-col w-full">
+                    <div className={`grid  gap-5 flex-1 ${slides}`}>
+                        {movieRemaining?.map((item) => (
+                            <MovieCard
+                                id={item.id}
+                                type="movie"
+                                typeImg="original"
+                                url={item.poster_path}
+                                title={item.title}
+                                date={item.release_date}
+                                rate={item.vote_average}
+                                key={item.id + item.title}
+                                size="lg"
+                            />
+                        ))}
+                    </div>
                 </div>
-            </div>
+            ) : (
+                <TopbarProgressIndicator />
+            )}
         </div>
     );
 };

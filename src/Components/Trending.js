@@ -19,8 +19,8 @@ const Trending = ({ title, dayTrending, weekTrending,bg }) => {
     }
     return (
         <div className={`w-full pt-8 items-center ${bg} text-white`}>
-            <div className="flex gap-5 items-center px-2 sm:px-5 md:px-10 lg:px-[60px]">
-                <span className="text-[25px]">{title}</span>
+            <div className="flex gap-2 sm:gap-5 items-center px-2 sm:px-5 md:px-10 lg:px-[60px]">
+                <span className={width >2 ?"text-[25px]" :"text-[20px]"}>{title}</span>
                 <div className="flex items-center border-[1px] rounded-full bg-[#ccc]">
                     <span
                         className={`px-5 py-1 rounded-full cursor-pointer  ${
@@ -45,12 +45,12 @@ const Trending = ({ title, dayTrending, weekTrending,bg }) => {
                 </div>
             </div>
 
-            <div className="w-full px-5 ">
+            <div className="w-full px-2 sm:px-5 ">
                 <div className="w-full relative overflow-hidden">
                     <Swiper
                         slidesPerView={slides}
                         loop={true}
-                        spaceBetween={20}
+                        spaceBetween={15}
                         onBeforeInit={(swiper) => {
                             swiperRef.current = swiper;
                         }}

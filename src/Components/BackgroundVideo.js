@@ -85,7 +85,7 @@ const BackgroundVideo = () => {
                 <NextIcon size={width > 2 ? 40 : 20} />
             </div>
             <div className="absolute top-0 left-0 w-full h-full">
-                {isLoaded && isVideo ? (
+                {isLoaded && isVideo && width > 1 ? (
                     <iframe
                         ref={videoRef}
                         title="background-video"
@@ -110,7 +110,9 @@ const BackgroundVideo = () => {
                         movie?.id,
                         movie?.title || movie?.name
                     )}
-                    className="text-[30px] font-popin font-bold text-white text-center hover:text-primary duration-200"
+                    className={`font-popin font-bold text-white text-center hover:text-primary duration-200 ${
+                        width > 1 ? "text-[30px] " : "text-[22px]"
+                    }`}
                 >
                     {movie?.title || movie?.name}
                 </Link>
