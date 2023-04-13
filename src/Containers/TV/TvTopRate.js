@@ -74,7 +74,6 @@ const TvTopRate = () => {
             setPage((prev) => prev + 1);
         }
     };
-    console.log(loaded);
     const width = useSelector(widthSelector);
     const slides =
         width === 1
